@@ -6,7 +6,7 @@ public class PlayerStateIdle : PlayerBaseState
 {
     public PlayerStateIdle(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
-
+        IsRootState = true;
     }
     public override void EnterState()
     {
@@ -35,5 +35,15 @@ public class PlayerStateIdle : PlayerBaseState
         }
     }
 
-    public override void InitializeSubState() { }
+    public override void InitializeSubState() 
+    {
+       if (Context.MovementPressed && !Context.RunPressed)
+        {
+            SetSubState(Factory.Walk());
+        }
+        else
+        {
+            SetSubState(Factory.Run());
+        }
+    }
 }

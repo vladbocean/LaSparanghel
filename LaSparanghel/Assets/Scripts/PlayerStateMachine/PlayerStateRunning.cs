@@ -25,11 +25,7 @@ public class PlayerStateRunning : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Context.MovementPressed && !Context.RunPressed)
-        {
-            SetSubState(Factory.Idle());
-        }
-        else if (Context.MovementPressed && !Context.RunPressed)
+        if (Context.MovementPressed && !Context.RunPressed)
         {
             SetSubState(Factory.Walk());
         }
