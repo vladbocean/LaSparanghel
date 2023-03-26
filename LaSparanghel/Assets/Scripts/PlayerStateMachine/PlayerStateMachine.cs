@@ -16,8 +16,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     //movement variables
     Vector2 p_currentMovementInput;
-    Vector2 p_currentMovement;
-    Vector2 p_appliedMovement;
+    Vector3 p_currentMovement;
+    Vector3 p_appliedMovement;
     bool p_movementPressed;
     bool p_runPressed;
     public float runFactor = 3.0f;
@@ -75,7 +75,7 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //HandleRotation();
+        HandleRotation();
 
         p_currentState.UpdateStates();
 
@@ -104,14 +104,26 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void HandleRotation()
     {
-        Vector2 l_positionToLookAt;
-        l_positionToLookAt.x = p_currentMovement.x;
-        l_positionToLookAt.y = p_currentMovement.y;
-        Quaternion l_currentRotation = transform.rotation;
-        if (p_movementPressed)
-        {
-            Quaternion l_targetRotation = Quaternion.LookRotation(l_positionToLookAt);
-            transform.rotation = Quaternion.Slerp(l_currentRotation, l_targetRotation, Time.deltaTime * rotationFactor);
-        }
+        //Vector3 l_positionToLookAt= new Vector3(0,0,0);
+        //l_positionToLookAt.x = -p_currentMovement.y;
+        //l_positionToLookAt.y = -p_currentMovement.x;
+        //Quaternion l_currentRotation = transform.rotation;
+        //if (p_movementPressed)
+        // {
+        //    Quaternion l_targetRotation = Quaternion.LookRotation(l_positionToLookAt);
+         //   l_positionToLookAt.y *= 2;
+         //   l_positionToLookAt.x *= 2;
+         //   Debug.Log(l_positionToLookAt.x + " " + l_positionToLookAt.y);
+         //   transform.rotation = Quaternion.Slerp(l_currentRotation, l_targetRotation, 1);
+        //}
+        //transform.rotation = new Quaternion(p_currentMovementInput.y, p_currentMovementInput.x, 0,0);
+        Quaternion rotation = new Quaternion(0, 0, 0, 0); ;
+        if (p_currentMovementInput.y < 0)
+            rotation.x = -1;
+        else rotation.x = 0;
+        if(p_currentMovementInput.x < 0)
+            rotation.y = -1;
+        else rotation.y = 0;
+        transform.rotation = rotation;
     }
 }
