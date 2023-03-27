@@ -10,6 +10,7 @@ public class PlayerStateWalking : PlayerBaseState
     }
     public override void EnterState()
     {
+        SetSubState(null);
         Context.Animator.SetBool(Context.IsWalkingHash, true);
         Context.Animator.SetBool(Context.IsRunningHash, false);
     }

@@ -58,9 +58,26 @@ public abstract class PlayerBaseState
 
     protected void SetSubState(PlayerBaseState newSubState)
     {
-        p_currentSubState = newSubState;
-        p_currentSubState.EnterState();
-        newSubState.SetSuperState(this);
+
+        if (newSubState != null)
+        {
+            if (this.p_currentSuperState != null)
+            {
+                this.p_currentSuperState.p_currentSubState = newSubState;
+                this.p_currentSuperState.p_currentSubState.EnterState();
+                newSubState.SetSuperState(this.p_currentSuperState);
+            }
+            else
+            {
+                p_currentSubState = newSubState;
+                p_currentSubState.EnterState();
+                newSubState.SetSuperState(this);
+            }
+        }
+        else
+        {
+            p_currentSubState = null;
+        }
     }
 
 }

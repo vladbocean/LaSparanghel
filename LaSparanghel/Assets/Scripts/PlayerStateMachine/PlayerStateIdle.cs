@@ -10,6 +10,7 @@ public class PlayerStateIdle : PlayerBaseState
     }
     public override void EnterState()
     {
+        SetSubState(null);
         Context.Animator.SetBool(Context.IsWalkingHash, false);
         Context.Animator.SetBool(Context.IsRunningHash, false);
         Context.AppliedMovementX = 0;
