@@ -30,6 +30,10 @@ public class PlayerStateRunning : PlayerBaseState
         {
             SetSubState(Factory.Walk());
         }
+        if(!Context.MovementPressed && !Context.RunPressed)
+        {
+            SetSubState(Factory.Idle());
+        }
     }
 
     public override void InitializeSubState() { }

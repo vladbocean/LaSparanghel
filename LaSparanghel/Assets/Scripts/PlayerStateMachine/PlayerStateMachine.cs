@@ -85,7 +85,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void OnRun(InputAction.CallbackContext context)
     {
-        p_runPressed = context.ReadValueAsButton();
+        p_runPressed = context.ReadValueAsButton() && p_movementPressed;
     }
     void OnMovementInput(InputAction.CallbackContext context)
     {
@@ -118,9 +118,7 @@ public class PlayerStateMachine : MonoBehaviour
         //}
         //transform.rotation = new Quaternion(p_currentMovementInput.y, p_currentMovementInput.x, 0,0);
         Quaternion rotation = new Quaternion(0, 0, 0, 0); ;
-        if (p_currentMovementInput.y < 0)
-            rotation.x = -1;
-        else rotation.x = 0;
+
         if(p_currentMovementInput.x < 0)
             rotation.y = -1;
         else rotation.y = 0;
