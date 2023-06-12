@@ -12,12 +12,12 @@ public class PlayerStateMachine : MonoBehaviour
     int p_isRunningHash;
 
     PlayerInput p_playerInput;
-    CharacterController p_characterController;
+    Rigidbody2D p_characterController;
 
     //movement variables
     Vector2 p_currentMovementInput;
     Vector3 p_currentMovement;
-    Vector3 p_appliedMovement;
+    Vector2 p_appliedMovement;
     bool p_movementPressed;
     bool p_runPressed;
     public float runFactor = 3.0f;
@@ -46,7 +46,7 @@ public class PlayerStateMachine : MonoBehaviour
     void Awake() // called earlier than start
     {
         p_playerInput = new PlayerInput();
-        p_characterController = GetComponent<CharacterController>();
+        p_characterController = GetComponent<Rigidbody2D>();
         p_animator = GetComponent<Animator>();
 
         p_states = new PlayerStateFactory(this);
@@ -79,8 +79,11 @@ public class PlayerStateMachine : MonoBehaviour
 
         p_currentState.UpdateStates();
 
-        p_characterController.Move(p_appliedMovement * Time.deltaTime);
+    }
 
+    void FixedUpdate()
+    {
+        p_characterController.MovePosition(p_characterController.position + p_appliedMovement * Time.deltaTime);
     }
 
     void OnRun(InputAction.CallbackContext context)
